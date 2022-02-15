@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Article index{% endblock %}
+
+{% block body %}
+    <h1 class="center">Article index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>PublicationDate</th>
+                <th>LastUpdateDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>
+                    {% if article.picture is not null %}
+                        <img style="width:50px; height:50px;" src="/uploads/{{ article.picture }}" alt="">
+                    {% else %}
+                        <img style="width:50px; height:50px;" src="/uploads/imgDefault.jpg" alt="">
+                    {% endif %}
+                </td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.content }}</td>
+                    <td>{{ article.publicationDate ? article.publicationDate|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ article.lastUpdateDate ? article.lastUpdateDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('blog_show', {'id': article.id}) }}"><i class="material-icons-round blue-text">preview</i></a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('blog_edit', {'id': article.id}) }}"><i class="material-icons-round amber-text accent-3">edit</i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="center">
+        {{ knp_pagination_render(articles) }}
+    </div>
+{% endblock %}

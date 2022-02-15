@@ -1,12 +1,3 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-
-# Email spool folder
-/app/spool/*
-
 # Cache, session files and logs (Symfony3)
 /var/cache/*
 /var/logs/*
@@ -32,8 +23,8 @@
 /vendor/
 
 # Assets and user uploads
-/web/bundles/
-/web/uploads/
+/public/bundles/
+/public/uploads/
 
 # PHPUnit
 /app/phpunit.xml
@@ -50,3 +41,18 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/var/
+###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

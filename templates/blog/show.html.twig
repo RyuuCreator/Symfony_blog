@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Article{% endblock %}
+
+{% block body %}
+    <div class="row valign-wrapper">
+        <a href="{{ path('blog_index') }}" class="col s1"><i class="medium material-icons-round black-text">undo</i></a>
+        
+        <h1 class="col s10 center">{{ article.title }}</h1>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col s1 valign-wrapper">
+                <a href="{{ path('blog_edit', {'id': article.id}) }}"><i class="material-icons-round amber-text accent-3">edit</i></a>
+
+                {{ include('blog/_delete_form.html.twig') }}
+            </div>
+        {% endif %}
+    </div>
+
+    <table class="table container">
+        <tbody>
+            <tr>
+                <th>Picture</th>
+                <td>
+                    {% if article.picture is not null %}
+                        <img style="width:300px; height:300px;" src="/uploads/{{ article.picture }}" alt="">
+                    {% else %}
+                        <img style="width:300px; height:300px;" src="/uploads/imgDefault.jpg" alt="">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{% for category in article.category %}{{ category.label }} {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article.content }}</td>
+            </tr>
+            <tr>
+                <th>PublicationDate</th>
+                <td>{{ article.publicationDate ? article.publicationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>LastUpdateDate</th>
+                <td>{{ article.lastUpdateDate ? article.lastUpdateDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
