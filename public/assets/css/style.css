@@ -1,5 +1,14 @@
-/* navbar */
 nav {
 	background-color: #ff3333;
 	margin-bottom: 30px;
+}
+
+.btn_a {
+	border: none;
+	background: none;
+    cursor: pointer;
+}
+
+.btn_a:focus {
+    background-color: transparent;
 }
